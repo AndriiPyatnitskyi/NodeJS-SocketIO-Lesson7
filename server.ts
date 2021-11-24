@@ -1,7 +1,9 @@
 // server
 const app = require('express')();
 const http = require('http').Server(app);
-const io = require('socket.io')(http);
+const io = require('socket.io')(http, {
+  maxHttpBufferSize: 1e8    // 100 MB
+});
 const port = process.env.PORT || 3000;
 
 app.get('/', (req, res) => {

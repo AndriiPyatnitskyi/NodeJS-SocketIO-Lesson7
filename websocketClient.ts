@@ -1,17 +1,20 @@
 const io = require("socket.io-client");
 
+const path  = require('path');
+const fs = require('fs');
+const text = fs.readFileSync(path.join(__dirname, './text.txt'), 'utf-8');
+
 const socket = io("http://localhost:3000", {
     transports: ["websocket"]
 });
 
 socket.on("connect", () => {
     console.log('websocket client connect');
-    socket.emit('chat message', 'Hello from node.js websocket client');
+    console.time("chatMessageSendTime");
+    socket.emit('chat message', text);
     socket.on('chat message', (message) => {
-        console.log('Received: ', message);
+        console.timeEnd("chatMessageSendTime");
     });
 });
 
-socket.on("disconnect", () => {
-    console.log(socket.id); // undefined
-});
+// On receiving 6.37 text we have following result - chatMessageSendTime: 755.37ms
