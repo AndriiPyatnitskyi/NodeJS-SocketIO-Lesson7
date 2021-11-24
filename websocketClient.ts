@@ -17,4 +17,4 @@ socket.on("connect", () => {
     });
 });
 
-// On receiving 6.37 text we have following result - chatMessageSendTime: 755.37ms
+// On receiving 6.37 MB size text we have following result - chatMessageSendTime: 755.37ms
